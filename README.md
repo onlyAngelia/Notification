@@ -7,24 +7,24 @@
 ```
 + (YANotificationCenter *)defaultNotificationCenter
 {
-static YANotificationCenter *notificationCenter = nil;
-static dispatch_once_t onceToken;
-dispatch_once(&onceToken, ^{
-notificationCenter = [[YANotificationCenter alloc] init];
-});
-return notificationCenter;
+   static YANotificationCenter *notificationCenter = nil;
+   static dispatch_once_t onceToken;
+   dispatch_once(&onceToken, ^{
+      notificationCenter = [[YANotificationCenter alloc] init];
+   });
+   return notificationCenter;
 }
 ```
 添加observers 并存放数组
 ```
 - (void)addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSNotificationName)aName object:(nullable id)anObject
 {
-YANotificationModel * notificationModel = [[YANotificationModel alloc] init];
-notificationModel.observer = observer;
-notificationModel.selector = aSelector;
-notificationModel.notificationName = aName;
-notificationModel.object = anObject;
-[self.observersArray addObject:notificationModel];
+   YANotificationModel * notificationModel = [[YANotificationModel alloc] init];
+   notificationModel.observer = observer;
+   notificationModel.selector = aSelector;
+   notificationModel.notificationName = aName;
+   notificationModel.object = anObject;
+   [self.observersArray addObject:notificationModel];
 
 }
 ```
