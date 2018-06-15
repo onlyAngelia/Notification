@@ -109,7 +109,31 @@ typedef void(^NotificationQueueBlock)(YANotification *notification);
 
 - (void)postNotification:(YANotification *)notification
 {
-    
+    [self.observersArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        YANotificationModel *notificationModel = (YANotificationModel *)obj;
+        if ([notificationModel.notificationName isEqualToString:notification.name]) {
+            if (notificationModel.queue) {
+                
+                NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
+                    notificationModel.queueBlock(notification);
+                }];
+                [notificationModel.queue addOperation:blockOperation];
+                
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSObject *object = notificationModel.observer;
+                    SEL selector = notificationModel.selector;
+                    NSInvocation *vocation = [NSInvocation invocationWithMethodSignature:[[object class] instanceMethodSignatureForSelector:selector]];
+                    [vocation setTarget:notificationModel.observer];
+                    [vocation setSelector:selector];
+                    [vocation setArgument:&notification atIndex:2];
+                    [vocation invoke];
+                                              
+                });
+            }
+        }
+        
+    }];
 }
 
 - (void)postNotificationName:(NSString *)aName object:(nullable id)anObject
