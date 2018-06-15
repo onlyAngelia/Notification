@@ -32,7 +32,10 @@
     }];
     
 }
-
+- (void)dealloc
+{
+    [[YANotificationCenter defaultNotificationCenter] removeObserver:self name:kVauleChangeNotification object:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

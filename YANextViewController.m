@@ -41,6 +41,7 @@ NSString *const kVauleChangeNotification = @"kVauleChangeNotification";
     
 }
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     
 }
