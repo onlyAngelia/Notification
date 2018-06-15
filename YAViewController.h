@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  YAViewController.h
 //  Notificaion
 //
 //  Created by yangxiuying on 2018/6/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface YAViewController : UIViewController
 
 
 @end
